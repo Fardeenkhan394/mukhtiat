@@ -1,0 +1,688 @@
+﻿<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>NEXVION SOLUTION | Design Studio</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Geist:wght@400;600&family=Inter:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <style>
+        @keyframes scan-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scan-line {
+            height: 2px;
+            width: 100%;
+            background: linear-gradient(90deg, transparent, #39FF14, transparent);
+            animation: scan-line 3s linear infinite;
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-panel:hover {
+            border-color: #39FF14;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0c1609; }
+        ::-webkit-scrollbar-thumb { background: #39FF14; border-radius: 10px; }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-high": "#222d1e",
+                        "inverse-surface": "#dae6d0",
+                        "surface-tint": "#2ae500",
+                        "on-surface": "#dae6d0",
+                        "inverse-primary": "#106e00",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#071105",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "outline-variant": "#3c4b35",
+                        "on-tertiary": "#313030",
+                        "on-background": "#dae6d0",
+                        "on-surface-variant": "#baccb0",
+                        "surface-container-low": "#141e11",
+                        "on-secondary-fixed-variant": "#474747",
+                        "tertiary": "#fdf9f9",
+                        "on-tertiary-container": "#626161",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "on-primary-container": "#107100",
+                        "on-error-container": "#ffdad6",
+                        "background": "#0c1609",
+                        "surface": "#0c1609",
+                        "surface-bright": "#323c2d",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "surface-container": "#182214",
+                        "on-error": "#690005",
+                        "surface-dim": "#0c1609",
+                        "secondary-fixed": "#e2e2e2",
+                        "secondary": "#c6c6c6",
+                        "on-primary-fixed-variant": "#095300",
+                        "surface-variant": "#2d3828",
+                        "primary-fixed": "#79ff5b",
+                        "on-secondary-container": "#b5b5b5",
+                        "inverse-on-surface": "#293324",
+                        "on-secondary": "#303030",
+                        "tertiary-container": "#e0dddc",
+                        "error-container": "#93000a",
+                        "secondary-container": "#474747",
+                        "primary": "#efffe3",
+                        "primary-container": "#39ff14",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "on-primary-fixed": "#022100",
+                        "on-primary": "#053900",
+                        "outline": "#85967c",
+                        "primary-fixed-dim": "#2ae500",
+                        "surface-container-highest": "#2d3828",
+                        "tertiary-fixed": "#e5e2e1"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
+                    },
+                    spacing: {
+                        gutter: "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        unit: "4px",
+                        "max-width": "1440px"
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Sora"],
+                        "label-sm": ["Geist"],
+                        "headline-lg": ["Sora"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Sora"]
+                    },
+                    fontSize: {
+                        "headline-xl": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "label-sm": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "body-md": ["16px", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
+                        "headline-lg-mobile": ["24px", { lineHeight: "1.2", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary">
+    <!-- TopNavBar -->
+    <nav
+        class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 h-20 flex justify-between items-center px-4 md:px-margin-desktop shadow-[0_0_15px_rgba(57,255,20,0.1)]">
+        <a href="#"
+            class="font-headline-xl text-headline-xl font-extrabold tracking-tighter text-primary-container drop-shadow-[0_0_10px_#39FF14]">
+            NS</a>
+        <div class="hidden md:flex gap-8">
+            <a class="font-label-sm text-label-sm text-primary-container font-bold border-b-2 border-primary-container pb-1 hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300"
+                href="index.html">Dashboard</a>
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300"
+                href="portfolio.html">Portfolio</a>
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container hover:drop-shadow-[0_0_8px_#39FF14] transition-all duration-300"
+                href="contact.html">Contact</a>
+        </div>
+        <div class="flex items-center gap-6">
+            <a href="contact.html"
+                class="bg-primary-container text-on-primary px-6 py-2 font-label-sm text-label-sm rounded-full hover:shadow-[0_0_20px_#39FF14] transition-all duration-300 scale-95 active:scale-90">
+                HELLO
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center overflow-hidden pt-20">
+            <div class="absolute inset-0 w-full h-full opacity-40" style="display:block;">
+                <canvas id="shader-canvas" style="display:block;width:100%;height:100%"></canvas>
+                <script>
+                    (function () {
+                        const canvas = document.getElementById('shader-canvas');
+                        function syncSize() {
+                            const w = canvas.clientWidth || 1280;
+                            const h = canvas.clientHeight || 720;
+                            if (canvas.width !== w || canvas.height !== h) {
+                                canvas.width = w;
+                                canvas.height = h;
+                            }
+                        }
+                        if (typeof ResizeObserver !== 'undefined') {
+                            new ResizeObserver(syncSize).observe(canvas);
+                        }
+                        syncSize();
+
+                        const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                        if (!gl) return;
+                        const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+                        const fs = `precision highp float;
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+varying vec2 v_texCoord;
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 m = u_mouse / u_resolution;
+    vec3 color = vec3(0.02, 0.04, 0.02);
+    float grid = sin(uv.x * 40.0 + u_time) * sin(uv.y * 40.0 + u_time);
+    grid = smoothstep(0.98, 1.0, grid);
+    float d = length(uv - m);
+    float glow = 0.05 / (d + 0.1);
+    float pulse = sin(u_time * 0.5) * 0.1 + 0.9;
+    color += vec3(0.22, 1.0, 0.08) * grid * pulse;
+    color += vec3(0.22, 1.0, 0.08) * glow * 0.3;
+    color += vec3(0.01, 0.05, 0.01) * (1.0 - uv.y);
+    gl_FragColor = vec4(color, 1.0);
+}`;
+                        function cs(type, src) {
+                            const s = gl.createShader(type);
+                            gl.shaderSource(s, src);
+                            gl.compileShader(s);
+                            return s;
+                        }
+                        const prog = gl.createProgram();
+                        gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+                        gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+                        gl.linkProgram(prog);
+                        gl.useProgram(prog);
+                        const buf = gl.createBuffer();
+                        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+                        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+                        const pos = gl.getAttribLocation(prog, 'a_position');
+                        gl.enableVertexAttribArray(pos);
+                        gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+                        const uTime = gl.getUniformLocation(prog, 'u_time');
+                        const uRes = gl.getUniformLocation(prog, 'u_resolution');
+                        const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+                        let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+                        window.addEventListener('mousemove', (event) => {
+                            const rect = canvas.getBoundingClientRect();
+                            if (rect.width && rect.height) {
+                                const nx = (event.clientX - rect.left) / rect.width;
+                                const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+                                mouse.x = nx * canvas.width;
+                                mouse.y = ny * canvas.height;
+                            }
+                        });
+                        function render(t) {
+                            if (typeof ResizeObserver === 'undefined') syncSize();
+                            gl.viewport(0, 0, canvas.width, canvas.height);
+                            if (uTime) gl.uniform1f(uTime, t * 0.001);
+                            if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+                            if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+                            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+                            requestAnimationFrame(render);
+                        }
+                        render(0);
+                    })();
+                </script>
+            </div>
+
+            <div
+                class="max-w-max-width mx-auto px-4 md:px-margin-desktop w-full grid grid-cols-1 lg:grid-cols-2 items-center gap-12 relative z-10">
+                <div class="space-y-8">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary-container/30 bg-primary-container/5 backdrop-blur-md">
+                        <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+                        <span class="font-label-sm text-label-sm text-primary-container">DESIGN STUDIO</span>
+                    </div>
+                    <h1 class="font-headline-xl text-headline-xl text-white leading-tight">
+                        Crafting Visual <br />
+                        <span class="text-primary-container drop-shadow-[0_0_15px_rgba(57,255,20,0.5)]">Identities
+                            Beyond</span> <br />
+                        Imagination
+                    </h1>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-lg">
+                        Elevate your brand's presence with hyper-realistic product visualization, premium packaging
+                        design, and compelling commercial layouts tailored for the modern market.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="contact.html"
+                            class="bg-primary-container text-on-primary px-10 py-4 font-label-sm text-label-sm font-bold rounded-sm shadow-[0_0_20px_#39FF14] hover:shadow-[0_0_35px_#39FF14] transition-all active:scale-95">
+                            START A PROJECT
+                        </a>
+                        <a href="portfolio.html"
+                            class="glass-panel text-white border border-white/20 px-10 py-4 font-label-sm text-label-sm font-bold rounded-sm hover:border-primary-container transition-all active:scale-95">
+                            EXPLORE PORTFOLIO
+                        </a>
+                    </div>
+                </div>
+                <div class="relative h-[600px] hidden lg:block">
+                    <div class="w-full h-full transform scale-125 pointer-events-none" style="display:block;">
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+                        <div id="threejs-container" style="width:100%;height:100%"></div>
+                        <script>
+                            (function () {
+                                const container = document.getElementById('threejs-container');
+                                const dpr = window.devicePixelRatio || 1;
+                                const width = container.clientWidth || window.innerWidth;
+                                const height = container.clientHeight || window.innerHeight;
+                                const scene = new THREE.Scene();
+                                const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+                                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                                renderer.setPixelRatio(Math.min(dpr, 2));
+                                renderer.setSize(width, height);
+                                container.appendChild(renderer.domElement);
+
+                                const geometry = new THREE.TorusKnotGeometry(1, 0.28, 220, 28);
+                                const material = new THREE.MeshPhongMaterial({
+                                    color: 0x39FF14,
+                                    wireframe: true,
+                                    emissive: 0x39FF14,
+                                    emissiveIntensity: 0.65,
+                                    transparent: true,
+                                    opacity: 0.85
+                                });
+                                const knot = new THREE.Mesh(geometry, material);
+                                scene.add(knot);
+
+                                const ringGeo = new THREE.TorusGeometry(1.85, 0.012, 16, 100);
+                                const ringMat = new THREE.MeshBasicMaterial({
+                                    color: 0x39FF14,
+                                    transparent: true,
+                                    opacity: 0.35
+                                });
+                                const ringA = new THREE.Mesh(ringGeo, ringMat);
+                                const ringB = new THREE.Mesh(ringGeo.clone(), ringMat.clone());
+                                ringB.rotation.x = Math.PI / 2;
+                                scene.add(ringA, ringB);
+
+                                scene.add(new THREE.AmbientLight(0x1a2a1a, 1.2));
+                                const pointLight = new THREE.PointLight(0x39FF14, 1.4, 100);
+                                pointLight.position.set(5, 5, 5);
+                                scene.add(pointLight);
+                                const pointLight2 = new THREE.PointLight(0x2ae500, 0.6, 80);
+                                pointLight2.position.set(-4, -2, 3);
+                                scene.add(pointLight2);
+
+                                camera.position.z = 5;
+
+                                function animate() {
+                                    requestAnimationFrame(animate);
+                                    const t = Date.now() * 0.001;
+                                    knot.rotation.x += 0.008;
+                                    knot.rotation.y += 0.012;
+                                    knot.position.y = Math.sin(t) * 0.2;
+                                    ringA.rotation.z += 0.004;
+                                    ringB.rotation.y += 0.006;
+                                    renderer.render(scene, camera);
+                                }
+
+                                window.addEventListener('resize', () => {
+                                    const w = container.clientWidth || window.innerWidth;
+                                    const h = container.clientHeight || window.innerHeight;
+                                    camera.aspect = w / h;
+                                    camera.updateProjectionMatrix();
+                                    renderer.setSize(w, h);
+                                });
+
+                                animate();
+                            })();
+                        </script>
+                    </div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Mission -->
+        <section class="py-32 px-4 md:px-margin-desktop max-w-max-width mx-auto" id="about">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                <div class="lg:col-span-2 space-y-8 reveal-on-scroll">
+                    <span class="font-label-sm text-label-sm text-primary-container">OUR MISSION</span>
+                    <h2 class="font-headline-lg text-headline-lg text-white">Visualizing Your Brand's Maximum Potential
+                    </h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+                        Operating at the intersection of creative art direction and commercial strategy. By combining
+                        high-end 3D product mockups with striking graphic layouts, I craft visual assets that breathe
+                        life into your brand and drive genuine engagement across all digital and physical platforms.
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-8 pt-8">
+                        <div class="space-y-2">
+                            <div class="font-headline-lg text-headline-lg text-primary-container">50+</div>
+                            <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
+                                Brands Elevated</div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="font-headline-lg text-headline-lg text-primary-container">100+</div>
+                            <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
+                                Projects Delivered</div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="font-headline-lg text-headline-lg text-primary-container">100%</div>
+                            <div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">
+                                Client Satisfaction</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div
+                        class="glass-panel h-full p-8 flex flex-col justify-between border-l-4 border-l-primary-container">
+                        <span class="material-symbols-outlined text-primary-container text-4xl">auto_awesome</span>
+                        <div class="space-y-4">
+                            <h3 class="font-headline-lg text-headline-lg text-white">Core Vision</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant italic">
+                                "Great design is more than just aesthetics; it is the powerful visual language that
+                                connects your premium products directly to your audience."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Expertise -->
+        <section class="py-32 px-4 md:px-margin-desktop bg-surface-container-lowest/30 relative" id="services">
+            <div class="max-w-max-width mx-auto">
+                <div class="mb-16 reveal-on-scroll">
+                    <span class="font-label-sm text-label-sm text-primary-container">EXPERTISE</span>
+                    <h2 class="font-headline-lg text-headline-lg text-white mt-2">Creative Design Ecosystem</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 100ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">web</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">Web Development</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">High-fidelity web architectures built
+                            with React, Next.js, and extreme performance optimizations.</p>
+                    </div>
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 150ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">design_services</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">UI/UX Design</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Cyber-industrial design systems with
+                            a focus on usability and emotional immersion.</p>
+                    </div>
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 200ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">psychology</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">AI Integration</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Embedding custom neural models and
+                            LLMs directly into your product workflow.</p>
+                    </div>
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 250ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">security</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">Cyber Security</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Encrypted protocols and biometric
+                            access layers for sensitive digital assets.</p>
+                    </div>
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 300ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">cloud_sync</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">Cloud Systems</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Scalable node architecture designed
+                            for zero-latency global deployment.</p>
+                    </div>
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 350ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">dataset</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">Data Analytics</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Predictive modeling and real-time
+                            visualization of complex system metrics.</p>
+                    </div>
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 400ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">mobile_friendly</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">Mobile Apps</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Native-performance cross-platform
+                            applications for on-the-go neural access.</p>
+                    </div>
+                    <div class="glass-panel p-8 group reveal-on-scroll" style="transition-delay: 450ms;">
+                        <span
+                            class="material-symbols-outlined text-primary-container mb-6 block text-3xl group-hover:scale-110 transition-transform">terminal</span>
+                        <h4 class="font-headline-lg text-headline-lg text-white text-xl mb-4">Custom Software</h4>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Bespoke technical solutions for
+                            specialized industrial and commercial requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Collaborate -->
+        <section class="py-32 px-4 md:px-margin-desktop">
+            <div class="max-w-max-width mx-auto grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
+                <div class="space-y-8 reveal-on-scroll">
+                    <h2 class="font-headline-lg text-headline-lg text-white">Why Collaborate With Me?</h2>
+                    <div class="space-y-6">
+                        <div class="flex gap-6 items-start">
+                            <div
+                                class="w-12 h-12 flex-shrink-0 bg-primary-container/10 border border-primary-container rounded-sm flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary-container">speed</span>
+                            </div>
+                            <div>
+                                <h5 class="font-headline-lg text-headline-lg text-lg text-white mb-2">Rapid & Reliable
+                                    Turnaround</h5>
+                                <p class="font-body-md text-body-md text-on-surface-variant">Delivering production-ready
+                                    visual assets efficiently, ensuring your marketing campaigns launch exactly on
+                                    schedule without compromising quality.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div
+                                class="w-12 h-12 flex-shrink-0 bg-primary-container/10 border border-primary-container rounded-sm flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary-container">shield_lock</span>
+                            </div>
+                            <div>
+                                <h5 class="font-headline-lg text-headline-lg text-lg text-white mb-2">Detail-Oriented
+                                    Precision</h5>
+                                <p class="font-body-md text-body-md text-on-surface-variant">Every pixel, layout, and
+                                    lighting effect is meticulously crafted to maximize commercial appeal and maintain
+                                    strict brand consistency.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div
+                                class="w-12 h-12 flex-shrink-0 bg-primary-container/10 border border-primary-container rounded-sm flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary-container">hub</span>
+                            </div>
+                            <div>
+                                <h5 class="font-headline-lg text-headline-lg text-lg text-white mb-2">Scalable
+                                    Infrastructure</h5>
+                                <p class="font-body-md text-body-md text-on-surface-variant">Built to support millions of
+                                    concurrent users without drop in performance.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal-on-scroll" style="transition-delay: 200ms;">
+                    <div class="relative rounded-lg overflow-hidden border border-white/10 aspect-video">
+                        <div class="w-full h-full bg-cover bg-center transition-transform duration-700 hover:scale-110"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCraT8VJfQ2_bpQEJYct7y-jU2u8b9MpqjgNTskm1Wh1BRWbhK6i9mqPMvG3We5olxFeHCWuOfmRCqOmJQXVtU7gvRMCp9BHcMMDVeXvvfJ9of37Ot3yzc517iW7AUTo0kmMctOZqVXAVDuUF8spdvlyEjtYkxzEn2MSaOiM4YykVNe-sAbbwpTl--3IWgXZELJ6kfod0U1HZSOsf76x5YGqXAIAWDNYHeSINixcWDhcg1U5eZ-mOBN')">
+                        </div>
+                        <div class="absolute inset-0 bg-primary-container/10 mix-blend-overlay"></div>
+                        <div class="scan-line absolute top-0 left-0"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio teaser (full page content later) -->
+        <section class="py-32 px-4 md:px-margin-desktop bg-surface-container-low/50 backdrop-blur-md" id="portfolio">
+            <div class="max-w-max-width mx-auto">
+                <div class="flex justify-between items-end mb-16 reveal-on-scroll">
+                    <div>
+                        <span class="font-label-sm text-label-sm text-primary-container">PORTFOLIO</span>
+                        <h2 class="font-headline-lg text-headline-lg text-white mt-2">Selected Work</h2>
+                    </div>
+                    <a href="portfolio.html"
+                        class="font-label-sm text-label-sm text-primary-container border-b border-primary-container hover:text-white hover:border-white transition-colors">EXPLORE
+                        ALL</a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="group cursor-pointer reveal-on-scroll">
+                        <div class="relative h-80 rounded-sm overflow-hidden mb-6">
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDWWjK4ZkosgbT2i79dnRlq_CfgfnVqTM9WOv9ns_KMMKatwAHBgjqWCZbexgzzyzTZBFR26PtdJ5D0PZxUYMB_nJxlX_5ScT79TXqllWicLtSbzpyLafLcGxOpS9iB70kzlJBEC1hCCiXo-ZE1Qk0k2PLNnaeXy24xaR39BTxc9qEeRe2Mpwa1fR6lkMJw8XZGDvO-vVxO1nLZywEk9gn0dPFmB5aLMRU9Y_7rNLvk6ifnSS74fGw0')">
+                            </div>
+                            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors"></div>
+                        </div>
+                        <h4
+                            class="font-headline-lg text-headline-lg text-xl text-white group-hover:text-primary-container transition-colors">
+                            PRODUCT VISUALIZATION</h4>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">3D / Branding / Commercial</p>
+                    </div>
+                    <div class="group cursor-pointer reveal-on-scroll" style="transition-delay: 200ms;">
+                        <div class="relative h-80 rounded-sm overflow-hidden mb-6">
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBfLJTPSjw26cqtPdtwz9Ib197ItL8UCm91EriZtvj7KI9BpVPckJWFrZXSHW7z5Rnb7SMpceTowmNosk7e-vgPz0r2ngrQokc04Gr0KxO5e9f2Q-1PJ-Og1-omBcetA08rY6vlw4vZeyOdJt8zbl6o5eZyfc2-n7NwAtOu_Spsy_92p3fe6leG13P-90SlpsN-HpPaTP6b67liRU9z9HqOreyyzkShvAZoAWjRt5vDPJAjEGYulcRM')">
+                            </div>
+                            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors"></div>
+                        </div>
+                        <h4
+                            class="font-headline-lg text-headline-lg text-xl text-white group-hover:text-primary-container transition-colors">
+                            PACKAGING & IDENTITY</h4>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant">Layout / Branding / Print</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Start a Project -->
+        <section class="py-32 px-4 md:px-margin-desktop bg-surface-container-high/20" id="contact">
+            <div class="max-w-4xl mx-auto reveal-on-scroll">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline-lg text-headline-lg text-white">Start a Project</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mt-4">Ready to elevate your brand? Share
+                        your project details below and let's create something visually stunning.</p>
+                </div>
+                <form class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Operator
+                                Name</label>
+                            <input
+                                class="w-full bg-transparent border-0 border-b border-outline-variant/30 text-white focus:ring-0 focus:border-primary-container transition-all py-3 placeholder:text-white/10"
+                                placeholder="John Doe" type="text" />
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Bio-Metric
+                                Email</label>
+                            <input
+                                class="w-full bg-transparent border-0 border-b border-outline-variant/30 text-white focus:ring-0 focus:border-primary-container transition-all py-3 placeholder:text-white/10"
+                                placeholder="operator@ns.systems" type="email" />
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Project Brief</label>
+                        <textarea
+                            class="w-full bg-transparent border-0 border-b border-outline-variant/30 text-white focus:ring-0 focus:border-primary-container transition-all py-3 placeholder:text-white/10"
+                            placeholder="Describe your neural requirements..." rows="4"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full py-6 glass-panel border border-primary-container text-primary-container font-headline-lg text-xl font-bold uppercase tracking-[0.2em] hover:bg-primary-container hover:text-on-primary transition-all duration-500">
+                        SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-12 px-4 md:px-margin-desktop bg-surface-container-lowest border-t border-outline-variant/10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-max-width mx-auto items-start">
+            <div class="md:col-span-1">
+                <div class="font-headline-lg text-headline-lg text-primary-container mb-6 font-black uppercase">Nexvion
+                    Solution</div>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-xs">Delivering premium product
+                    visualization, packaging layouts, and striking brand identities that elevate your commercial
+                    presence.</p>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h6 class="font-label-sm text-label-sm text-white uppercase mb-2">Explore</h6>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="portfolio.html">Portfolio</a>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="#services">Services</a>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="contact.html">Contact</a>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h6 class="font-label-sm text-label-sm text-white uppercase mb-2">Socials</h6>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="#">LinkedIn</a>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="#">Instagram</a>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="#">Behance</a>
+            </div>
+            <div class="flex flex-col gap-4">
+                <h6 class="font-label-sm text-label-sm text-white uppercase mb-2">Reach Out</h6>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="contact.html">Start a Project</a>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="mailto:nexvionsystem@gmail.com">nexvionsystem@gmail.com</a>
+                <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-colors"
+                    href="contact.html">Request a Quote</a>
+            </div>
+        </div>
+        <div
+            class="max-w-max-width mx-auto mt-16 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <span class="font-label-sm text-label-sm text-on-surface-variant opacity-50">© 2026 NEXVION SYSTEM All Rights
+                Reserved.</span>
+            <div class="flex gap-6">
+                <span
+                    class="material-symbols-outlined text-on-surface-variant hover:text-primary-container cursor-pointer transition-colors">public</span>
+                <span
+                    class="material-symbols-outlined text-on-surface-variant hover:text-primary-container cursor-pointer transition-colors">alternate_email</span>
+                <span
+                    class="material-symbols-outlined text-on-surface-variant hover:text-primary-container cursor-pointer transition-colors">share</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal-on-scroll').forEach((el) => observer.observe(el));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (!target) return;
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+
+</html>

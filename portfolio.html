@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Visual Portfolio | NEXVION SOLUTION</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Geist:wght@400;600&family=Inter:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <style>
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-panel:hover {
+            border-color: #39FF14;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+        }
+
+        .project-card {
+            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-6px);
+            border-color: #39FF14;
+            box-shadow:
+                0 0 25px rgba(57, 255, 20, 0.35),
+                0 0 50px rgba(57, 255, 20, 0.15),
+                0 12px 40px rgba(0, 0, 0, 0.45);
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .filter-btn.active {
+            border-color: #39FF14;
+            color: #39FF14;
+        }
+
+        .project-card.hidden-by-filter {
+            display: none;
+        }
+
+        .featured-glow {
+            box-shadow: 0 0 40px rgba(57, 255, 20, 0.15);
+            border: 1px solid rgba(57, 255, 20, 0.35);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0c1609; }
+        ::-webkit-scrollbar-thumb { background: #39FF14; border-radius: 10px; }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: "#0c1609",
+                        surface: "#0c1609",
+                        "on-background": "#dae6d0",
+                        "on-surface-variant": "#baccb0",
+                        "primary-container": "#39ff14",
+                        "on-primary": "#053900",
+                        "outline-variant": "#3c4b35",
+                        "surface-container-lowest": "#071105",
+                        "surface-container": "#182214"
+                    },
+                    spacing: {
+                        "margin-desktop": "48px",
+                        "max-width": "1440px",
+                        gutter: "24px"
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Geist"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-xl": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "label-sm": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary">
+    <nav
+        class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/20 h-20 flex justify-between items-center px-4 md:px-margin-desktop shadow-[0_0_15px_rgba(57,255,20,0.1)]">
+        <a href="index.html"
+            class="font-headline-xl text-3xl md:text-headline-xl font-extrabold tracking-tighter text-primary-container drop-shadow-[0_0_10px_#39FF14]">NS</a>
+        <div class="hidden md:flex gap-8">
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-all"
+                href="index.html">Dashboard</a>
+            <a class="font-label-sm text-label-sm text-primary-container font-bold border-b-2 border-primary-container pb-1"
+                href="portfolio.html">Portfolio</a>
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-all"
+                href="contact.html">Contact</a>
+        </div>
+        <a href="contact.html"
+            class="bg-primary-container text-on-primary px-6 py-2 font-label-sm text-label-sm rounded-full hover:shadow-[0_0_20px_#39FF14] transition-all">HELLO</a>
+    </nav>
+
+    <main class="pt-20">
+        <!-- Hero -->
+        <section class="min-h-[70vh] flex items-center justify-center px-4 md:px-margin-desktop text-center">
+            <div class="max-w-4xl mx-auto space-y-8 reveal-on-scroll">
+                <h1 class="font-headline-xl text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight uppercase">
+                    <span class="text-white/80">Visual</span>
+                    <span class="text-primary-container drop-shadow-[0_0_20px_rgba(57,255,20,0.45)]"> Portfolio</span>
+                </h1>
+                <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mx-auto">
+                    Transforming concepts into compelling visual narratives. Explore high-end 3D mockups, packaging
+                    designs, and dynamic campaigns crafted for modern brands.
+                </p>
+                <div class="flex flex-wrap justify-center gap-4 pt-2">
+                    <a href="#work"
+                        class="bg-primary-container text-on-primary px-10 py-4 font-label-sm text-label-sm font-bold rounded-sm shadow-[0_0_20px_#39FF14] hover:shadow-[0_0_35px_#39FF14] transition-all">
+                        EXPLORE WORK
+                    </a>
+                    <a href="contact.html"
+                        class="border border-primary-container text-primary-container px-10 py-4 font-label-sm text-label-sm font-bold rounded-sm hover:bg-primary-container/10 transition-all">
+                        LET'S COLLABORATE
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters + Grid -->
+        <section id="work" class="pb-24 px-4 md:px-margin-desktop">
+            <div class="max-w-max-width mx-auto">
+                <div class="flex flex-wrap justify-center gap-3 mb-16 reveal-on-scroll" id="filters">
+                    <button data-filter="all"
+                        class="filter-btn active font-label-sm text-label-sm uppercase px-5 py-2 rounded-full border border-outline-variant/40 text-on-surface-variant transition-all">ALL
+                        SYSTEMS</button>
+                    <button data-filter="branding"
+                        class="filter-btn font-label-sm text-label-sm uppercase px-5 py-2 rounded-full border border-transparent text-on-surface-variant/70 hover:text-primary-container transition-all">NEURAL
+                        SYSTEMS</button>
+                    <button data-filter="packaging"
+                        class="filter-btn font-label-sm text-label-sm uppercase px-5 py-2 rounded-full border border-transparent text-on-surface-variant/70 hover:text-primary-container transition-all">CYBER
+                        SECURITY</button>
+                    <button data-filter="web"
+                        class="filter-btn font-label-sm text-label-sm uppercase px-5 py-2 rounded-full border border-transparent text-on-surface-variant/70 hover:text-primary-container transition-all">WEB
+                        PLATFORMS</button>
+                    <button data-filter="mobile"
+                        class="filter-btn font-label-sm text-label-sm uppercase px-5 py-2 rounded-full border border-transparent text-on-surface-variant/70 hover:text-primary-container transition-all">MOBILE
+                        ACCESS</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Choco Bite -->
+                    <article
+                        class="project-card glass-panel overflow-hidden flex flex-col reveal-on-scroll"
+                        data-category="branding packaging" style="transition-delay: 50ms;">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="images/card1.png"
+                                alt="Choco Bite brand packaging" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-white/15 text-on-surface-variant rounded-sm">Branding</span>
+                                <span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-white/15 text-on-surface-variant rounded-sm">Packaging</span>
+                                <span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-white/15 text-on-surface-variant rounded-sm">Advertisement</span>
+                            </div>
+                            <h3 class="font-headline-lg text-xl text-white">Choco Bite Brand Identity</h3>
+                            <p class="font-body-md text-sm text-on-surface-variant flex-1">Vibrant brand identity and
+                                packaging design for a premium cookie brand, optimized for commercial appeal.</p>
+                            <a href="contact.html"
+                                class="inline-flex items-center gap-2 self-start mt-2 px-4 py-2 border border-primary-container text-primary-container font-label-sm text-label-sm hover:bg-primary-container/10 transition-all">
+                                VIEW CASE STUDY
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- Glow Vera -->
+                    <article
+                        class="project-card glass-panel overflow-hidden flex flex-col reveal-on-scroll"
+                        data-category="branding web" style="transition-delay: 100ms;">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="images/card2.png"
+                                alt="Glow Vera skincare visualization" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-white/15 text-on-surface-variant rounded-sm">Product Visualization</span>
+                                <span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-white/15 text-on-surface-variant rounded-sm">Layout</span>
+                            </div>
+                            <h3 class="font-headline-lg text-xl text-white">Glow Vera Skincare</h3>
+                            <p class="font-body-md text-sm text-on-surface-variant flex-1">Hyper-realistic product mockups
+                                and complete brand visualization designed for an organic skincare serum.</p>
+                            <a href="contact.html"
+                                class="inline-flex items-center gap-2 self-start mt-2 px-4 py-2 border border-primary-container text-primary-container font-label-sm text-label-sm hover:bg-primary-container/10 transition-all">
+                                VIEW CASE STUDY
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- ZEVA -->
+                    <article
+                        class="project-card glass-panel overflow-hidden flex flex-col reveal-on-scroll"
+                        data-category="branding packaging mobile" style="transition-delay: 150ms;">
+                        <div class="aspect-[4/3] overflow-hidden">
+                            <img src="images/card3.png"
+                                alt="ZEVA fragrance portfolio" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                        </div>
+                        <div class="p-6 flex flex-col flex-1 gap-4">
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-white/15 text-on-surface-variant rounded-sm">Visual Identity</span>
+                                <span class="text-[10px] tracking-widest uppercase px-2 py-1 border border-white/15 text-on-surface-variant rounded-sm">Art Direction</span>
+                            </div>
+                            <h3 class="font-headline-lg text-xl text-white">ZEVA Fragrance Portfolio</h3>
+                            <p class="font-body-md text-sm text-on-surface-variant flex-1">Sophisticated visual identity
+                                and multi-panel presentation layouts crafted for a premium fragrance brand.</p>
+                            <a href="#featured"
+                                class="inline-flex items-center gap-2 self-start mt-2 px-4 py-2 border border-primary-container text-primary-container font-label-sm text-label-sm hover:bg-primary-container/10 transition-all">
+                                VIEW CASE STUDY
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Campaign -->
+        <section id="featured" class="pb-24 px-4 md:px-margin-desktop">
+            <div class="max-w-max-width mx-auto featured-glow rounded-xl overflow-hidden glass-panel reveal-on-scroll">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
+                    <div class="aspect-square lg:aspect-auto min-h-[320px]">
+                        <img src="images/card4.png"
+                            alt="ZEVA premium perfume visualization" class="w-full h-full object-cover" />
+                    </div>
+                    <div class="p-8 md:p-12 flex flex-col justify-center space-y-6">
+                        <span class="font-label-sm text-label-sm text-primary-container">FEATURED CAMPAIGN</span>
+                        <h2 class="font-headline-lg text-headline-lg text-white">Premium Product Visualization</h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant">
+                            A comprehensive commercial campaign featuring hyper-realistic product mockups and dynamic
+                            brand assets. Rendered in ultra-high 8K and 16K resolutions, this project is structured to
+                            elevate digital marketing and maximize commercial appeal across all social platforms.
+                        </p>
+                        <div class="flex gap-12 pt-2">
+                            <div>
+                                <div class="font-headline-lg text-3xl text-primary-container">16K</div>
+                                <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">MAX RESOLUTION</div>
+                            </div>
+                            <div>
+                                <div class="font-headline-lg text-3xl text-primary-container">30+</div>
+                                <div class="font-label-sm text-label-sm text-on-surface-variant mt-1">BRAND ASSETS</div>
+                            </div>
+                        </div>
+                        <a href="contact.html"
+                            class="inline-flex items-center gap-2 self-start bg-primary-container text-on-primary px-8 py-4 font-label-sm text-label-sm font-bold rounded-sm shadow-[0_0_20px_#39FF14] hover:shadow-[0_0_35px_#39FF14] transition-all">
+                            EXPLORE CASE STUDY
+                            <span class="material-symbols-outlined text-base">rocket_launch</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="pb-32 px-4 md:px-margin-desktop text-center">
+            <div class="max-w-3xl mx-auto space-y-6 reveal-on-scroll">
+                <h2 class="font-headline-lg text-headline-lg md:text-4xl text-white uppercase tracking-tight">Ready to
+                    Start a Project?</h2>
+                <p class="font-body-md text-body-md text-on-surface-variant">Connect with our lead architects to
+                    initialize your next digital venture.</p>
+                <a href="contact.html"
+                    class="inline-block border border-primary-container text-primary-container px-10 py-4 font-label-sm text-label-sm font-bold rounded-sm hover:bg-primary-container/10 transition-all">
+                    INITIALIZE CONNECTION
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="w-full py-12 px-4 md:px-margin-desktop bg-surface-container-lowest border-t border-outline-variant/10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-max-width mx-auto items-start gap-8">
+            <div>
+                <div class="font-headline-lg text-xl text-primary-container mb-4 font-black uppercase">Nexvion Solution
+                </div>
+                <p class="font-body-md text-sm text-on-surface-variant max-w-xs">Delivering premium product visualization,
+                    packaging layouts, and striking brand identities.</p>
+            </div>
+            <div class="flex flex-col gap-3">
+                <h6 class="font-label-sm text-label-sm text-white uppercase mb-1">Explore</h6>
+                <a href="portfolio.html" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Portfolio</a>
+                <a href="index.html#services" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Services</a>
+                <a href="contact.html" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Contact</a>
+            </div>
+            <div class="flex flex-col gap-3">
+                <h6 class="font-label-sm text-label-sm text-white uppercase mb-1">Socials</h6>
+                <a href="#" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">LinkedIn</a>
+                <a href="#" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Instagram</a>
+                <a href="#" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Behance</a>
+            </div>
+            <div class="flex flex-col gap-3">
+                <h6 class="font-label-sm text-label-sm text-white uppercase mb-1">Reach Out</h6>
+                <a href="contact.html" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Start a Project</a>
+                <a href="mailto:nexvionsystem@gmail.com"
+                    class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">nexvionsystem@gmail.com</a>
+            </div>
+        </div>
+        <div class="max-w-max-width mx-auto mt-12 pt-6 border-t border-white/5">
+            <span class="font-label-sm text-label-sm text-on-surface-variant opacity-50">© 2026 NEXVION SYSTEM All Rights
+                Reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.project-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                cards.forEach(card => {
+                    const cats = card.dataset.category.split(' ');
+                    const show = filter === 'all' || cats.includes(filter);
+                    card.classList.toggle('hidden-by-filter', !show);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

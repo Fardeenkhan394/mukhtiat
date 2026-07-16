@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Contact | NEXVION SOLUTION</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Geist:wght@400;600&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <style>
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mono {
+            font-family: "JetBrains Mono", ui-monospace, monospace;
+        }
+
+        .map-grid {
+            background-color: #050805;
+            background-image:
+                linear-gradient(rgba(57, 255, 20, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(57, 255, 20, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 50% 50%, rgba(57, 255, 20, 0.12), transparent 55%);
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+        }
+
+        .pulse-pin {
+            animation: pin-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pin-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(57, 255, 20, 0.5); }
+            50% { box-shadow: 0 0 0 18px rgba(57, 255, 20, 0); }
+        }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .reveal-on-scroll.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0c1609; }
+        ::-webkit-scrollbar-thumb { background: #39FF14; border-radius: 10px; }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        background: "#050805",
+                        surface: "#0a0e0a",
+                        "on-background": "#dae6d0",
+                        "on-surface-variant": "#baccb0",
+                        "primary-container": "#39ff14",
+                        "on-primary": "#053900",
+                        "outline-variant": "#3c4b35",
+                        "surface-container": "#121812",
+                        "surface-container-lowest": "#040704"
+                    },
+                    spacing: {
+                        "margin-desktop": "48px",
+                        "max-width": "1440px"
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-sm": ["Geist"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-xl": ["48px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "headline-lg": ["32px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
+                        "label-sm": ["12px", { lineHeight: "1", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "body-md": ["16px", { lineHeight: "1.6", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary">
+    <nav
+        class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/20 h-20 flex justify-between items-center px-4 md:px-margin-desktop">
+        <a href="index.html"
+            class="font-label-sm text-label-sm md:text-sm tracking-[0.15em] text-primary-container font-bold uppercase">
+            Neon Systems
+        </a>
+        <div class="hidden md:flex gap-8">
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-all"
+                href="index.html">Dashboard</a>
+            <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container transition-all"
+                href="portfolio.html">Portfolio</a>
+            <a class="font-label-sm text-label-sm text-primary-container font-bold border-b-2 border-primary-container pb-1"
+                href="contact.html">Contact</a>
+        </div>
+        <a href="#form"
+            class="bg-primary-container text-on-primary px-6 py-2 font-label-sm text-label-sm font-bold hover:shadow-[0_0_20px_#39FF14] transition-all">
+            CONNECT
+        </a>
+    </nav>
+
+    <main class="pt-20">
+        <section class="px-4 md:px-margin-desktop py-16 md:py-24">
+            <div class="max-w-max-width mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                <!-- Left -->
+                <div class="space-y-8 reveal-on-scroll">
+                    <div class="flex items-center gap-3">
+                        <span class="w-8 h-px bg-primary-container"></span>
+                        <span class="mono text-xs tracking-widest text-primary-container uppercase">Status:
+                            Online</span>
+                    </div>
+                    <h1 class="font-headline-xl text-4xl md:text-5xl text-white leading-tight">
+                        Let's Start a <span class="text-primary-container">Project</span>
+                    </h1>
+                    <p class="font-body-md text-body-md text-on-surface-variant max-w-md">
+                        Ready to elevate your brand? Share your vision with me and let's create something extraordinary
+                        together.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <a href="mailto:nexvionsystem@gmail.com"
+                            class="glass-panel flex items-start gap-4 p-4 hover:border-primary-container transition-all block">
+                            <span class="material-symbols-outlined text-primary-container mt-0.5">mail</span>
+                            <div>
+                                <div class="font-label-sm text-[10px] tracking-widest text-on-surface-variant uppercase mb-1">
+                                    Transmission Channel</div>
+                                <div class="text-white font-medium">nexvionsystem@gmail.com</div>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/923335448028" target="_blank" rel="noopener"
+                            class="glass-panel flex items-start gap-4 p-4 hover:border-primary-container transition-all block">
+                            <span class="material-symbols-outlined text-primary-container mt-0.5">chat</span>
+                            <div>
+                                <div class="font-label-sm text-[10px] tracking-widest text-on-surface-variant uppercase mb-1">
+                                    Priority Uplink (WhatsApp)</div>
+                                <div class="text-white font-medium">+ 92 (333) 5448028</div>
+                            </div>
+                        </a>
+                        <div class="glass-panel flex items-start gap-4 p-4">
+                            <span class="material-symbols-outlined text-primary-container mt-0.5">location_on</span>
+                            <div>
+                                <div class="font-label-sm text-[10px] tracking-widest text-on-surface-variant uppercase mb-1">
+                                    Physical Access Point</div>
+                                <div class="text-white font-medium">Based in Hyderabad, Pakistan</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 pt-4">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary-container/70"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary-container/40"></span>
+                        <span class="mono text-[11px] text-on-surface-variant/70 tracking-wider ml-2">AWAITING
+                            INPUT...</span>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div id="form" class="glass-panel p-6 md:p-8 reveal-on-scroll" style="transition-delay: 120ms;">
+                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Message queued. We\\'ll reply soon.');">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="font-label-sm text-[11px] text-primary-container uppercase">Full
+                                    Name</label>
+                                <input type="text" required placeholder="USER_ID_00"
+                                    class="mono w-full bg-transparent border border-outline-variant/40 px-3 py-3 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-primary-container transition-all" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-label-sm text-[11px] text-primary-container uppercase">Email
+                                    Address</label>
+                                <input type="email" required placeholder="ADDRESS@SECURE.NET"
+                                    class="mono w-full bg-transparent border border-outline-variant/40 px-3 py-3 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-primary-container transition-all" />
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-sm text-[11px] text-primary-container uppercase">Subject</label>
+                            <input type="text" required placeholder="INITIALIZE_PROTOCOL"
+                                class="mono w-full bg-transparent border border-outline-variant/40 px-3 py-3 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-primary-container transition-all" />
+                        </div>
+                        <div class="space-y-2">
+                            <label class="font-label-sm text-[11px] text-primary-container uppercase">Message
+                                Payload</label>
+                            <textarea required rows="6" placeholder="ENTER_DATA_HERE..."
+                                class="mono w-full bg-transparent border border-outline-variant/40 px-3 py-3 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-primary-container transition-all resize-y"></textarea>
+                        </div>
+                        <button type="submit"
+                            class="w-full bg-primary-container text-on-primary py-4 font-label-sm text-label-sm font-bold uppercase tracking-widest hover:shadow-[0_0_25px_#39FF14] transition-all">
+                            Send Message
+                        </button>
+                        <div class="flex justify-between items-center gap-4 pt-1">
+                            <span class="mono text-[10px] text-on-surface-variant/60 tracking-wider">ENCRYPTION: ACTIVE
+                                • LATENCY: 24MS</span>
+                            <span
+                                class="w-10 h-8 border border-outline-variant/40 bg-white/5 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-on-surface-variant/50 text-sm">memory</span>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Map -->
+        <section class="px-4 md:px-margin-desktop pb-24">
+            <div class="max-w-max-width mx-auto map-grid relative rounded-sm overflow-hidden border border-outline-variant/30 min-h-[360px] flex items-center justify-center reveal-on-scroll">
+                <div class="absolute top-6 left-6 space-y-1 mono text-[11px] tracking-wider z-10">
+                    <div><span class="text-primary-container">NODE STATUS:</span> <span class="text-white">SECURE
+                            [16]</span></div>
+                    <div><span class="text-primary-container">POWER GRID:</span> <span class="text-white">STABLE
+                            [98%]</span></div>
+                </div>
+                <div class="text-center relative z-10 px-4">
+                    <div
+                        class="mx-auto mb-4 w-12 h-12 rounded-full bg-primary-container/20 border border-primary-container flex items-center justify-center pulse-pin">
+                        <span class="material-symbols-outlined text-primary-container">location_on</span>
+                    </div>
+                    <h3 class="font-headline-lg text-2xl md:text-3xl text-white tracking-wide">HYDERABAD, PAKISTAN</h3>
+                    <p class="font-label-sm text-label-sm text-primary-container mt-2">Available Worldwide</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-outline-variant/20 py-8 px-4 md:px-margin-desktop">
+        <div class="max-w-max-width mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <span class="text-white font-medium">Nexvion system</span>
+            <div class="flex flex-wrap justify-center gap-6">
+                <a href="#" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Behance</a>
+                <a href="#" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">LinkedIn</a>
+                <a href="#" class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Instagram</a>
+                <a href="contact.html"
+                    class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary-container">Contact</a>
+            </div>
+            <span class="font-label-sm text-label-sm text-on-surface-variant/70">© 2026 NEXVION SYSTEM All Rights
+                Reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+    </script>
+</body>
+
+</html>
